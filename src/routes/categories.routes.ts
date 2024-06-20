@@ -1,16 +1,21 @@
 import express from 'express'
 
+import {v4 as uuidV4} from 'uuid'
+
 const categoriesRoutes = express.Router()
 
 const categories: any = []
 
-categoriesRoutes.post("/categories", (req, res) => {
-  const { name, description  } = req.body
+categoriesRoutes.post("/", (req, res) => {
+  const { name, description } = req.body
 
-  categories.push({
+  const category = {
     name,
-    description
-  })
+    description,
+    id: uuidV4()
+  }
+
+  categories.push(category)
 
   return res.status(201).json([
     categories
